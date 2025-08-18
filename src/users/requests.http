@@ -9,10 +9,19 @@ content-type: application/json
 }
 
 ### find user by id
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/2
 
 ### find all users
 GET http://localhost:3000/auth/?email=email@email.email
 
 ### delete a user by id
 DELETE http://localhost:3000/auth/1
+
+
+### update a user
+PATCH http://localhost:3000/auth/2
+content-type: application/json
+
+{
+    "password": "patchedpassword"
+}
