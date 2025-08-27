@@ -4,8 +4,8 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-    "email": "new@email.hashed",
-    "password": "string"
+    "email": "newsignup2@email.hom",
+    "password": "string12345"
 }
 
 ### signin a user
@@ -13,8 +13,8 @@ POST http://localhost:3000/auth/signin
 content-type: application/json
 
 {
-    "email": "new@email.hashed",
-    "password": "string"
+    "email": "newsignup@email.hom",
+    "password": "string123"
 }
 
 ### find user by id
