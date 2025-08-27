@@ -20,6 +20,9 @@ content-type: application/json
 ### get the currently signed in user
 GET http://localhost:3000/auth/whoami
 
+### signout a user
+POST http://localhost:3000/auth/signout
+
 ### find user by id
 GET http://localhost:3000/auth/2
 
