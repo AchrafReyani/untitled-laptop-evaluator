@@ -8,6 +8,15 @@ content-type: application/json
     "password": "string"
 }
 
+### signin a user
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "new@email.hashed",
+    "password": "string"
+}
+
 ### find user by id
 GET http://localhost:3000/auth/2
 
