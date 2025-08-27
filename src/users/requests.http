@@ -17,6 +17,9 @@ content-type: application/json
     "password": "string123"
 }
 
+### get the currently signed in user
+GET http://localhost:3000/auth/whoami
+
 ### find user by id
 GET http://localhost:3000/auth/2
 
