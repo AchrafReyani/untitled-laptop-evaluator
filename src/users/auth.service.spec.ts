@@ -2,7 +2,8 @@ import { Test } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-    import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+
 describe('AuthService', () => {
     let service: AuthService;
     let fakeUsersService: Partial<UsersService>;
@@ -51,5 +52,21 @@ describe('AuthService', () => {
         await expect(
           service.signin('generic@account.com', 'genericpassword'),
         ).rejects.toThrow(NotFoundException);
+    });
+
+    it('throws if an invalid password is provided', async () => {
+        fakeUsersService.find = () =>
+            Promise.resolve([
+            { email: 'generic@account.com', password: 'genericpassword' } as User,
+            ]);
+        await expect(
+            service.signin('generic@account.com', 'wrongpassword'),
+        ).rejects.toThrow(BadRequestException);
+    });
+
+    it('returns a user if corrent password is provided', async () => {
+        //todo saltedpassword= ee129e01ece9b1da.cad5a146b9f4beb97584e53cd674379317d2ba7f8e6be0b4e049c0da1f020ae6
+        const user = await service.signup('generic@account.com', 'genericpassword');
+        //console.log(user);
     });
 });
