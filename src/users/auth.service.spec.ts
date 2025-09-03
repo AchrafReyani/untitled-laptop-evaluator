@@ -9,9 +9,17 @@ describe('AuthService', () => {
     let fakeUsersService: Partial<UsersService>;
 
     beforeEach(async () => {
+        const users: User[] = [];
         fakeUsersService = {
-            find: () => Promise.resolve([]),
-            create: (email: string, password: string) => Promise.resolve({ id: 1, email, password } as User),
+            find: (email: string) => {
+                const filteredUsers = users.filter(user => user.email === email);
+                return Promise.resolve(filteredUsers);
+            },
+            create: (email: string, password: string) => {
+                const user = { id: Math.floor(Math.random() * 999999), email, password } as User
+                users.push(user);
+                return Promise.resolve(user);
+            },
         };
 
         const module = await Test.createTestingModule({
@@ -65,8 +73,9 @@ describe('AuthService', () => {
     });
 
     it('returns a user if corrent password is provided', async () => {
-        //todo saltedpassword= ee129e01ece9b1da.cad5a146b9f4beb97584e53cd674379317d2ba7f8e6be0b4e049c0da1f020ae6
-        const user = await service.signup('generic@account.com', 'genericpassword');
-        //console.log(user);
+        await service.signup('generic@account.com', 'genericpassword');
+
+        const user = await service.signin('generic@account.com', 'genericpassword');
+        expect(user).toBeDefined();
     });
 });
